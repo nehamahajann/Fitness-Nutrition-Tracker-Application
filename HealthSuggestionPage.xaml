@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="FitnessNutritionTracker.HealthSuggestionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FitnessNutritionTracker"
+      xmlns:viewmodel="clr-namespace:FitnessNutritionTracker.ViewModel"
+             mc:Ignorable="d" 
+      >
+
+    <UserControl.Resources>
+        <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="610"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Health Suggestion" Grid.Row="0" FontSize="28" FontWeight="Bold" Margin="26,20,0,6" Foreground="#111"/>
+
+        <!-- Chat area -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20" Orientation="Vertical" >
+
+                <!-- AI Message -->
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                    <Ellipse Width="25" Height="25" Fill="#22C55E" VerticalAlignment="Top">
+                        <!--<Ellipse.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=StarIcon}" />
+                        </Ellipse.OpacityMask>-->
+                    </Ellipse>
+                    <TextBlock Text="Hey There! I can help you track and analyze your food, workouts, sleep, water intake, and glucose levels. I can also create personalized diet plans, suggest fitness tips, and monitor your progress toward your goal of being fitter. Just ask me anything about your health and fitness, and I'll guide you like a friend! 😊 What would you like to start with?"
+                               TextWrapping="Wrap" Margin="10,0,0,0" 
+                               Background="White" 
+                               Foreground="#333"
+                               MaxWidth="500"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"/>
+                </StackPanel>
+
+
+                <!-- User Message -->
+                <StackPanel HorizontalAlignment="Center" Margin="0,10"
+                            Visibility="{Binding UserQuestion, Converter={StaticResource StringToVisibilityConverter}}">
+                    <TextBlock Text="{Binding UserQuestion}" 
+                               FontStyle="Italic" 
+                               Foreground="#047857"
+                               FontSize="14"
+                               Background="#F0FDF4" 
+                               Padding="8,6"/>
+                </StackPanel>
+
+                <!-- AI Reply -->
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,10"
+                            Visibility="{Binding AIRespText, Converter={StaticResource StringToVisibilityConverter}}">
+                    <Ellipse Width="25" Height="25" Fill="#22C55E" VerticalAlignment="Top"/>
+                    <TextBlock Text="{Binding AIRespText}"
+                               TextWrapping="Wrap" Margin="10,0,0,0" 
+                               Background="White" 
+                               Foreground="#333"
+                               MaxWidth="500"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"/>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Bottom Action Buttons -->
+        <Border Grid.Row="2" Background="White" Padding="15" CornerRadius="15,15,0,0" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button Content="Dietary Suggestions" 
+                        Background="#E5E7EB" 
+                        Foreground="#111827" 
+                        Padding="12,6" 
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Command="{Binding DietarySuggestionCommands}"/>
+                <Button Content="Fitness Tips" 
+                        Background="#E5E7EB" 
+                        Foreground="#111827" 
+                        Padding="12,6" 
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Command="{Binding FitnessTipCommands}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,45 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="av"
+        x:Class="FitnessNutritionTracker.MainWindow"
+        Title="Fitness &amp; Nutrition Tracker"
+        Height="830"
+        Width="650"
+        WindowStartupLocation="CenterScreen"
+        Background="#FFF6F6F4"
+        ResizeMode="CanResizeWithGrip"
+        xmlns:local="clr-namespace:FitnessNutritionTracker"
+        FontFamily="Segoe UI">
+
+    <StackPanel>
+        <TabControl x:Name="tabControl" Height="auto" SelectionChanged="MyTabControl_SelectionChanged">
+            <!-- Dashboard / Trackers Tab -->
+            <TabItem Header="Dashboard">
+                <local:Dashboard/>
+            </TabItem>
+
+            <TabItem Header="Activity logs" TabIndex="1">
+                <local:ActivityLogsPage/>
+            </TabItem>
+
+            <TabItem Header="Health Suggestion">
+                <local:HealthSuggestionPage/>
+            </TabItem>
+
+            <TabItem Header="Add Activity">
+                <local:AddActivity/>
+            </TabItem>
+
+            <!-- Goal settings Tab -->
+            <TabItem Header="Goal Settings">
+                <local:GoalSettings/>
+            </TabItem>
+
+        </TabControl>
+
+    </StackPanel>
+
+</Window>

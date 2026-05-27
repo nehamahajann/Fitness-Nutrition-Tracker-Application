@@ -1,0 +1,323 @@
+﻿<UserControl x:Class="FitnessNutritionTracker.AddActivity"
+             Height="830" Width="720"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FitnessNutritionTracker"
+             xmlns:viewmodel="clr-namespace:FitnessNutritionTracker.ViewModel"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+
+    <UserControl.Resources>
+        <local:EnumDescriptionTypeConverter x:Key="EnumDescConverter"/>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <TextBlock Text="Add Activity" FontSize="28" FontWeight="Bold" Margin="26,18,0,6" Foreground="#111"/>
+
+        <StackPanel Margin="26, 26, 0, 26" HorizontalAlignment="Left">
+            <TextBlock Text="Choose New Activity Type" FontSize="16"/>
+
+            <ComboBox 
+                x:Name="MyComboBox"
+                Width="200"
+                ItemsSource="{Binding LogTypes}" 
+                SelectedItem="{Binding SelectedLogType, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumDescConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+        </StackPanel>
+
+        <StackPanel Margin="26,0,0,0" x:Name="PanelA" HorizontalAlignment="Left">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=MyComboBox}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <TextBlock Text="Choose Your Meal Type" FontSize="16"/>
+
+            <ComboBox 
+            ItemsSource="{Binding MealTypes}" 
+            SelectedItem="{Binding SelectedMealType, Mode=TwoWay}"
+            Width="200">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource EnumDescConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Button  Margin="0,26,0,0" Command="{Binding ClickAnalyzeFoodPhoto}" Content="Upload Food Photo" Height="42" />
+        </StackPanel>
+
+
+        <StackPanel x:Name="WeightPanel" Margin="26">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=MyComboBox}" Value="1">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <Grid Margin="10" Width="300" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.Resources>
+                    <Style x:Key="CircularButton" TargetType="Button">
+                        <Setter Property="Background" Value="#673AB7"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Width" Value="36"/>
+                        <Setter Property="Height" Value="36"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="10, 0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                                CornerRadius="18"
+                                Padding="{TemplateBinding Padding}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
+
+                <Button Grid.Column="0" 
+            Style="{StaticResource CircularButton}"
+            Content="-" 
+            FontWeight="Bold"
+            FontSize="20"
+            Padding="0,-4,0,0"
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+             Command="{Binding ClickWeightDecrese}"           />
+
+                <Border Grid.Column="1" 
+            Background="White"
+            CornerRadius="8"
+            BorderBrush="#E0E0E0"
+            BorderThickness="1"
+            Padding="15, 10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding CurrentWeight}" 
+                       FontSize="48" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       VerticalAlignment="Bottom"/>
+
+                        <TextBlock Text="kg" 
+                       FontSize="20" 
+                       FontWeight="Normal" 
+                       Foreground="#888888" 
+                       Margin="8, 0, 0, 6" 
+                       VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                </Border>
+
+                <Button Grid.Column="2" 
+            Style="{StaticResource CircularButton}"
+            Content="+" 
+            FontWeight="Bold"
+            FontSize="20"
+            Padding="0,-4,0,0"
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+            Command="{Binding ClickWeightIncr}"            />
+            </Grid>
+
+            <Button  Margin="0,26,0,0" Width="200"  Content="Save" Height="42" Command="{Binding ClickSaveWeightChange}"/>
+        </StackPanel>
+
+
+        <StackPanel x:Name="WorkoutPanel" Margin="26, 0, 0, 0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=MyComboBox}" Value="2">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <StackPanel HorizontalAlignment="Left">
+                <TextBlock Text="Choose New Workout Type" FontSize="16"/>
+
+                <ComboBox
+                Width="200"
+                ItemsSource="{Binding WorkoutTypes}" 
+                SelectedItem="{Binding SelectedWorkoutType, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumDescConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+            </StackPanel>
+
+            <Grid Margin="10" Width="300" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" 
+            Background="White"
+            CornerRadius="8"
+            BorderBrush="#E0E0E0"
+            BorderThickness="1"
+            Padding="15, 10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox Text="{Binding InputCalories, UpdateSourceTrigger=PropertyChanged }"
+                                 Width="100"
+                       FontSize="48" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       VerticalAlignment="Bottom"/>
+
+                        <TextBlock Text="Cal" 
+                       FontSize="20" 
+                       FontWeight="Normal" 
+                       Foreground="#888888" 
+                       Margin="8, 0, 0, 6" 
+                       VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+            <Button  Margin="0,26,0,0" Width="200"  Content="Add" Height="42" Command="{Binding ClickSaveCaloriesChange}"/>
+        </StackPanel>
+
+        <StackPanel x:Name="StepsPanel" Margin="26, 0, 0, 0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=MyComboBox}" Value="3">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <Grid Margin="10" Width="300" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" 
+            Background="White"
+            CornerRadius="8"
+            BorderBrush="#E0E0E0"
+            BorderThickness="1"
+            Padding="15, 10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox Text="{Binding InputSteps, UpdateSourceTrigger=PropertyChanged }"
+                                 Width="100"
+                       FontSize="48" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       VerticalAlignment="Bottom"/>
+
+                        <TextBlock Text="Steps" 
+                       FontSize="20" 
+                       FontWeight="Normal" 
+                       Foreground="#888888" 
+                       Margin="8, 0, 0, 6" 
+                       VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+            <Button  Margin="0,26,0,0" Width="200"  Content="Add" Height="42" Command="{Binding ClickSaveSteps}"/>
+        </StackPanel>
+
+
+        <StackPanel x:Name="SleepPanel" Margin="26, 0, 0, 0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedIndex, ElementName=MyComboBox}" Value="4">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <Grid Margin="10" Width="300" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" 
+            Background="White"
+            CornerRadius="8"
+            BorderBrush="#E0E0E0"
+            BorderThickness="1"
+            Padding="15, 10"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox Text="{Binding InputSleepHours, UpdateSourceTrigger=PropertyChanged }"
+                                 Width="100"
+                       FontSize="48" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333" 
+                       VerticalAlignment="Bottom"/>
+
+                        <TextBlock Text="Hours" 
+                       FontSize="20" 
+                       FontWeight="Normal" 
+                       Foreground="#888888" 
+                       Margin="8, 0, 0, 6" 
+                       VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+            <Button  Margin="0,26,0,0" Width="200"  Content="Add" Height="42" Command="{Binding ClickSaveSleepHours}"/>
+        </StackPanel>
+
+    </StackPanel>
+
+</UserControl>

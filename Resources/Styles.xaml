@@ -1,0 +1,90 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Common card style -->
+    <Style x:Key="CardStyle" TargetType="{x:Type Border}">
+        <Setter Property="CornerRadius" Value="18"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Padding" Value="22"/>
+        <Setter Property="Margin" Value="20"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+
+    <!-- Small circular icon button (right side +) -->
+    <Style x:Key="CircleButton" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="36"/>
+        <Setter Property="Height" Value="36"/>
+        <Setter Property="Background" Value="#00FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#FFBDBDBD"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border CornerRadius="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Label style -->
+    <Style x:Key="TrackerTitle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="#111111"/>
+    </Style>
+
+    <!-- Small grey subtitle -->
+    <Style x:Key="Subtitle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#7A7A7A"/>
+    </Style>
+
+    <!-- Nutrient progress bar style -->
+    <Style x:Key="ThinProgressBar" TargetType="{x:Type ProgressBar}">
+        <Setter Property="Height" Value="8"/>
+        <Setter Property="Foreground" Value="#E6C743"/>
+        <Setter Property="Background" Value="#FFECECEC"/>
+        <Setter Property="Margin" Value="0,6,0,14"/>
+    </Style>
+
+    <!-- Activity log card style -->
+    <Style x:Key="ActLogCardStyle" TargetType="{x:Type Border}">
+        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Margin" Value="20,12"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#20000000" BlurRadius="12" ShadowDepth="0" Opacity="0.11"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Log Title -->
+    <Style x:Key="LogTitle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#111"/>
+    </Style>
+
+    <!-- Icon Circle -->
+    <Style x:Key="IconCircle" TargetType="{x:Type Border}">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="Background" Value="#F2EDF7"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Nutrient Stack -->
+    <Style x:Key="NutrientStack" TargetType="{x:Type StackPanel}">
+        <Setter Property="Orientation" Value="Vertical"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="20,10"/>
+    </Style>
+
+</ResourceDictionary>
